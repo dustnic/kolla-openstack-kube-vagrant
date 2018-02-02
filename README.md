@@ -1,1 +1,0 @@
-# kolla-openstack-kube-vagrant
