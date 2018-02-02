@@ -1,0 +1,7 @@
+-   name: Install Linux Headers
+    yum: name=linux-headers-${ansible_kernel} state=present
+    tags: linux_headers
+
+-   name: Install Kernel Devel
+    yum: name=kernel-devel state=present
+    tags: linux_headers

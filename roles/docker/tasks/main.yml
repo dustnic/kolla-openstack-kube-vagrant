@@ -1,0 +1,14 @@
+-   name: Remove existing Docker
+    yum: name=docker* state=absent
+    update_cache: yes
+    tags: docker
+
+-   name: Install Docker
+    yum: name=docker state=present
+    tags: docker
+
+- name: Enable Docker service
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
