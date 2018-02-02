@@ -1,0 +1,12 @@
+[masters]
+master1 ansible_host=172.40.100.2 ansible_ssh_private_key_file=.vagrant/machines/master/virtualbox/private_key
+
+[nodes]
+worker1  ansible_host=172.40.100.101 ansible_ssh_private_key_file=.vagrant/machines/worker-1/virtualbox/private_key
+worker2  ansible_host=172.40.100.102 ansible_ssh_private_key_file=.vagrant/machines/worker-2/virtualbox/private_key
+worker3  ansible_host=172.40.100.103 ansible_ssh_private_key_file=.vagrant/machines/worker-3/virtualbox/private_key
+worker4  ansible_host=172.40.100.104 ansible_ssh_private_key_file=.vagrant/machines/worker-4/virtualbox/private_key
+
+
+[etcds]
+etcd  ansible_host=172.40.100.3 ansible_ssh_private_key_file=.vagrant/machines/etcd/virtualbox/private_key
