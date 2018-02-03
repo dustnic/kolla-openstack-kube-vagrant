@@ -1,14 +1,63 @@
--   name: Remove existing Docker
-    yum: name=docker* state=absent
-    update_cache: yes
+---
+
+-   name: Install python setup tools
+    apt: name={{ item }}
     tags: docker
+    with_items:
+      - python-setuptools
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - build-essential
+      # - libreadline-gplv2-dev
+      # - libncursesw5-dev
+      # - libssl-dev
+      # - libsqlite3-dev
+      # - tk-dev
+      # - libgdbm-dev libc6-dev libbz2-dev
+
+# -   name: Get Python 2.7.9
+#     get_url:
+#       url: https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz
+#       dest: /tmp/
+
+# -   name: Get and Extract Python 2.7.9
+#     unarchive:
+#       src: https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz
+#       remote_src: yes
+#       dest: /tmp/
+#
+# -   name: Compile and install Python
+#     command: sudo {{ item }} chdir="/tmp/Python-2.7.9"
+#     with_items:
+#       - ./configure
+#       - make
+#       - make install
+
+-   name: Install Pypi
+    easy_install: name=pip
+    tags: docker
+
+-   name: Install docker-py
+    pip: name=docker-py
+    tags: docker
+
+-   name: Add Docker repo gpg key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+-   name: Add docker repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu xenial stable
+      update_cache: yes
+      validate_certs: no
 
 -   name: Install Docker
-    yum: name=docker state=present
+    apt: name=docker-ce state=latest
     tags: docker
 
-- name: Enable Docker service
-  systemd:
-    name: docker
-    enabled: yes
-    state: started
+-   name: Make sure Docker is running
+    service: name=docker state=running
+    tags: docker
